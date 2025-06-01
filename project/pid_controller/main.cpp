@@ -219,14 +219,28 @@ int main ()
   * TODO (Step 1): create pid (pid_steer) for steer command and initialize values
   **/
 
+  PID pid_steer = PID();
+  // PID steer arguments
+  double kps = 0.25;    // start 0.25 try lower like 0.23 > 0.21
+  double kis = 0.00;    // start 0.00 try 0.02
+  double kds = 0.02;    // start 0.00 try 0.01 > 0.02
+  
+  pid_steer.Init(kps, kis, kds, 1.2,-1.2) ;       
+
 
   // initialize pid throttle
   /**
   * TODO (Step 1): create pid (pid_throttle) for throttle command and initialize values
   **/
 
-  PID pid_steer = PID();
   PID pid_throttle = PID();
+  // PID steer arguments
+  double kpt = 0.1;     // start 0.1 try 0.15 > ...
+  double kit = 0.00;    // start 0.00 try 0.02
+  double kdt = 0.02;    // start 0.00 try 0.01 > 0.02
+  
+  pid_throttle.Init(kpt, kit, kdt, 1.0,-1.0);
+
 
   h.onMessage([&pid_steer, &pid_throttle, &new_delta_time, &timer, &prev_timer, &i, &prev_timer](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode)
   {
@@ -288,19 +302,40 @@ int main ()
           /**
           * TODO (step 3): uncomment these lines
           **/
-//           // Update the delta time with the previous command
-//           pid_steer.UpdateDeltaTime(new_delta_time);
+           // Update the delta time with the previous command
+           // pid_steer.UpdateDeltaTime(new_delta_time);
 
           // Compute steer error
-          double error_steer;
-
-
-          double steer_output;
+          double error_steer = 0;   // Default value
+          double steer_output = 0;  // Default value
 
           /**
           * TODO (step 3): compute the steer error (error_steer) from the position and the desired trajectory
           **/
-//           error_steer = 0;
+
+          // calculating CTE as the perpendicular distance between the current ego position and of the desired trajectory.
+          // double min_distance = std::numeric_limits<double>::max();
+          // int closest_index = 0;
+          
+          // Find the closest point on the planned trajectory
+          // for (size_t i=0; i<x_points.size(); i++) {
+          //  double distance = sqrt(pow(x_position - x_points[i], 2) + pow(y_position - y_points[i], 2));
+          //  if (distance < min_distance) {
+          //    min_distance = distance;
+          //    closest_index = i;
+          //  }
+          //}
+          // Calculate the heading error - the angle difference between desired heading and current heading
+          // This represents how much we need to turn to align with the trajectory
+          //double ideal_yaw = atan2(y_points[closest_index] - y_position, x_points[closest_index] - x_position);
+          //double heading_error = ideal_yaw - yaw;
+          
+          // Using only heading error for the steering PID controller
+          // Note: I omit the positional error component to simplify the implementation and tuning.
+          // This approach works well at consistent speeds and moderate path curvatures,
+          // making the PID controller more intuitive to tune.
+          //error_steer = heading_error;
+
 
           /**
           * TODO (step 3): uncomment these lines
@@ -329,17 +364,16 @@ int main ()
 //           pid_throttle.UpdateDeltaTime(new_delta_time);
 
           // Compute error of speed
-          double error_throttle;
+          double error_throttle = 0; // Default value
           /**
           * TODO (step 2): compute the throttle error (error_throttle) from the position and the desired speed
           **/
           // modify the following line for step 2
-          error_throttle = 0;
+          // error_throttle = v_points.back() - velocity;  // uncommented version
 
 
-
-          double throttle_output;
-          double brake_output;
+          double throttle_output = 0;    // Default value
+          double brake_output = 0;       // Default value
 
           /**
           * TODO (step 2): uncomment these lines
