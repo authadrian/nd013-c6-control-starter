@@ -360,8 +360,8 @@ int main ()
           /**
           * TODO (step 2): uncomment these lines
           **/
-//           // Update the delta time with the previous command
-//           pid_throttle.UpdateDeltaTime(new_delta_time);
+           // Update the delta time with the previous command
+           pid_throttle.UpdateDeltaTime(new_delta_time);
 
           // Compute error of speed
           double error_throttle = 0; // Default value
@@ -369,8 +369,14 @@ int main ()
           * TODO (step 2): compute the throttle error (error_throttle) from the position and the desired speed
           **/
           // modify the following line for step 2
-          // error_throttle = v_points.back() - velocity;  // uncommented version
+          error_throttle = v_points.back() - velocity;  // uncommented version
 
+          // Add debugging prints here
+          cout << "---------------------" << endl;
+          cout << "Time: " << sim_time << " seconds" << endl;
+          cout << "Throttle Error: " << error_throttle << endl;
+          cout << "Current Velocity: " << velocity << endl;
+          cout << "Target Velocity: " << v_points.back() << endl;
 
           double throttle_output = 0;    // Default value
           double brake_output = 0;       // Default value
@@ -378,28 +384,35 @@ int main ()
           /**
           * TODO (step 2): uncomment these lines
           **/
-//           // Compute control to apply
-//           pid_throttle.UpdateError(error_throttle);
-//           double throttle = pid_throttle.TotalError();
+           // Compute control to apply
+           pid_throttle.UpdateError(error_throttle);
+           double throttle = pid_throttle.TotalError();
 
-//           // Adapt the negative throttle to break
-//           if (throttle > 0.0) {
-//             throttle_output = throttle;
-//             brake_output = 0;
-//           } else {
-//             throttle_output = 0;
-//             brake_output = -throttle;
-//           }
+          // Add debugging prints here
+           cout << "P-Term: " << pid_throttle.k_p * pid_throttle.error_p << endl;
+           cout << "I-Term: " << pid_throttle.k_i * pid_throttle.error_i << endl;
+           cout << "D-Term: " << pid_throttle.k_d * pid_throttle.error_d << endl;
+           cout << "Control Output: " << throttle << endl;
+           cout << "---------------------" << endl;
 
-//           // Save data
-//           file_throttle.seekg(std::ios::beg);
-//           for(int j=0; j < i - 1; ++j){
-//               file_throttle.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-//           }
-//           file_throttle  << i ;
-//           file_throttle  << " " << error_throttle;
-//           file_throttle  << " " << brake_output;
-//           file_throttle  << " " << throttle_output << endl;
+           // Adapt the negative throttle to break
+           if (throttle > 0.0) {
+             throttle_output = throttle;
+             brake_output = 0;
+           } else {
+             throttle_output = 0;
+             brake_output = -throttle;
+           }
+
+           // Save data
+           file_throttle.seekg(std::ios::beg);
+           for(int j=0; j < i - 1; ++j){
+               file_throttle.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+           }
+           file_throttle  << i ;
+           file_throttle  << " " << error_throttle;
+           file_throttle  << " " << brake_output;
+           file_throttle  << " " << throttle_output << endl;
 
 
           // Send control
