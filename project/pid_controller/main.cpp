@@ -221,9 +221,9 @@ int main ()
 
   PID pid_steer = PID();
   // PID steer arguments
-  double kps = 0.5;    // start 0.25     // run2 new  0.4     // run2 new  0.5
-  double kis = 0.005;   // start 0.001    // run2 new  0.0     // run2 new  0.005
-  double kds = 0.04;    // start 0.02    // run2 new  0.08    // run2 new  0.04
+  double kps = 0.35;    // start 0.25     // run2 new  0.4     // run2 new  0.5    // run2 new  0.35
+  double kis = 0.003;   // start 0.001    // run2 new  0.0    // run2 new  0.005  // run2 new  0.003
+  double kds = 0.025;    // start 0.02    // run2 new  0.08    // run2 new  0.04   // run2 new  0.025
   
   pid_steer.Init(kps, kis, kds, 1.2,-1.2) ;       
 
