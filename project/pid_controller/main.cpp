@@ -302,8 +302,8 @@ int main ()
           /**
           * TODO (step 3): uncomment these lines
           **/
-           // Update the delta time with the previous command
-           // pid_steer.UpdateDeltaTime(new_delta_time);
+          // Update the delta time with the previous command
+          pid_steer.UpdateDeltaTime(new_delta_time);
 
           // Compute steer error
           double error_steer = 0;   // Default value
@@ -314,44 +314,44 @@ int main ()
           **/
 
           // calculating CTE as the perpendicular distance between the current ego position and of the desired trajectory.
-          // double min_distance = std::numeric_limits<double>::max();
-          // int closest_index = 0;
+          double min_distance = std::numeric_limits<double>::max();
+          int closest_index = 0;
           
           // Find the closest point on the planned trajectory
-          // for (size_t i=0; i<x_points.size(); i++) {
-          //  double distance = sqrt(pow(x_position - x_points[i], 2) + pow(y_position - y_points[i], 2));
-          //  if (distance < min_distance) {
-          //    min_distance = distance;
-          //    closest_index = i;
-          //  }
-          //}
+          for (size_t i=0; i<x_points.size(); i++) {
+            double distance = sqrt(pow(x_position - x_points[i], 2) + pow(y_position - y_points[i], 2));
+            if (distance < min_distance) {
+              min_distance = distance;
+              closest_index = i;
+            }
+          }
           // Calculate the heading error - the angle difference between desired heading and current heading
           // This represents how much we need to turn to align with the trajectory
-          //double ideal_yaw = atan2(y_points[closest_index] - y_position, x_points[closest_index] - x_position);
-          //double heading_error = ideal_yaw - yaw;
+          double ideal_yaw = atan2(y_points[closest_index] - y_position, x_points[closest_index] - x_position);
+          double heading_error = ideal_yaw - yaw;
           
           // Using only heading error for the steering PID controller
           // Note: I omit the positional error component to simplify the implementation and tuning.
           // This approach works well at consistent speeds and moderate path curvatures,
           // making the PID controller more intuitive to tune.
-          //error_steer = heading_error;
+          error_steer = heading_error;
 
 
           /**
           * TODO (step 3): uncomment these lines
           **/
-//           // Compute control to apply
-//           pid_steer.UpdateError(error_steer);
-//           steer_output = pid_steer.TotalError();
+          // Compute control to apply
+          pid_steer.UpdateError(error_steer);
+          steer_output = pid_steer.TotalError();
 
-//           // Save data
-//           file_steer.seekg(std::ios::beg);
-//           for(int j=0; j < i - 1; ++j) {
-//               file_steer.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//           }
-//           file_steer  << i ;
-//           file_steer  << " " << error_steer;
-//           file_steer  << " " << steer_output << endl;
+          // Save data
+          file_steer.seekg(std::ios::beg);
+          for(int j=0; j < i - 1; ++j) {
+              file_steer.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+          }
+          file_steer  << i ;
+          file_steer  << " " << error_steer;
+          file_steer  << " " << steer_output << endl;
 
           ////////////////////////////////////////
           // Throttle control
