@@ -221,9 +221,9 @@ int main ()
 
   PID pid_steer = PID();
   // PID steer arguments
-  double kps = 0.4;    // start 0.25     // run2 new  0.4
-  double kis = 0.00;   // start 0.001    // run2 new  0.0
-  double kds = 0.08;    // start 0.02     // run2 new  0.08
+  double kps = 0.5;    // start 0.25     // run2 new  0.4     // run2 new  0.5
+  double kis = 0.005;   // start 0.001    // run2 new  0.0     // run2 new  0.005
+  double kds = 0.04;    // start 0.02    // run2 new  0.08    // run2 new  0.04
   
   pid_steer.Init(kps, kis, kds, 1.2,-1.2) ;       
 
@@ -235,7 +235,7 @@ int main ()
 
   PID pid_throttle = PID();
   // PID throttle arguments
-  double kpt = 0.2;     // start 0.10   // run2 new  0.2
+  double kpt = 0.2;     // start 0.10   // run2 new  0.2      
   double kit = 0.001;   // start 0.00   // run2 new  0.001
   double kdt = 0.02;    // start 0.01   // run2 new  0.02
   
