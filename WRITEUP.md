@@ -1,6 +1,6 @@
 ## Carla Screenshots - Step 1
 
-![Step 1](./images_for_writeup/Step1_Carla.png "Car is not moving.")
+![Step 1](./project/images_for_writeup/Step1_Carla.png "Car is not moving.")
 
 Step 1 works as expected. Code compiles and runs successfully. Car is not moving.
 
@@ -39,9 +39,9 @@ Tuning Steering proved more challenging compared to throttle. It was not only ab
 
 _Parameters:_
 
-  double kps = 0.35;    // run1  0.25     // run2  0.4    // run3  0.5    // run4  0.35
-  double kis = 0.003;   // run1  0.001    // run2  0.0    // run3  0.005  // run4  0.003
-  double kds = 0.025;   // run1  0.02     // run2  0.08   // run3  0.04   // run4  0.025
+double kps = 0.35;    // run1  0.25     // run2  0.4    // run3  0.5    // run4  0.35
+double kis = 0.003;   // run1  0.001    // run2  0.0    // run3  0.005  // run4  0.003
+double kds = 0.025;   // run1  0.02     // run2  0.08   // run3  0.04   // run4  0.025
 
 _Next:_
 - Run 1: Steering oscillation, large swings, instability, slow steering response.
@@ -49,11 +49,11 @@ _Next:_
 - Run 3: Over-dumped response, slow to settle (60-80 steps). Steady state offset of (0.0036). Insufficient aggressiveness?
 - Run 4: See below with plots.
 
-![Run 2 - 1](./images_for_writeup/Screenshot-run2-1.png "Run 2 _ Start")
-![Run 2 - 2](./images_for_writeup/Screenshot-run2-2.png "Run 2 _ Ego avoided obstacle.")
-![Run 4 - 1](./images_for_writeup/Screenshot-run4-1.png "Run 4 _ Start")
-![Run 4 - 2](./images_for_writeup/Screenshot-run4-2.png "Run 4 _ Ego avoided obstacle.")
-![Run 4 - 3](./images_for_writeup/Screenshot-run4-3.png "Run 4 _ Ego overshoots, fails to recover.")
+![Run 2 - 1](./project/images_for_writeup/Screenshot-run2-1.png "Run 2 _ Start")
+![Run 2 - 2](./project/images_for_writeup/Screenshot-run2-2.png "Run 2 _ Ego avoided obstacle.")
+![Run 4 - 1](./project/images_for_writeup/Screenshot-run4-1.png "Run 4 _ Start")
+![Run 4 - 2](./project/images_for_writeup/Screenshot-run4-2.png "Run 4 _ Ego avoided obstacle.")
+![Run 4 - 3](./project/images_for_writeup/Screenshot-run4-3.png "Run 4 _ Ego overshoots, fails to recover.")
 
 
 ## Behaviour issues
@@ -73,7 +73,7 @@ In detail:
 
 I am analysing the plots strictly from a PID tuning perspective, ignoring the behaviour issues outlined above.
 
-![Throttle error](./images_for_writeup/throttle_error_plot_run4.png "Throttle error with : kpt = 0.2, kit = 0.001, kdt = 0.02")
+![Throttle error](./project/images_for_writeup/throttle_error_plot_run4.png "Throttle error with : kpt = 0.2, kit = 0.001, kdt = 0.02")
 
 Stability: Great - very stable throughout the run
 Response Speed: Fast initial response - reaches target velocity by step 8-10
@@ -81,7 +81,7 @@ Steady-State Tracking: Outstanding - maintains target velocity consistently (err
 Error Range: Minimal (mostly 0 to 1.11), indicating excellent velocity control
 Disturbance Rejection: Good recovery from brief negative spike at step 45
 
-![Steer error](./images_for_writeup/throttle_error_plot_run4.png "Steer error with : kps = 0.35, kis = 0.003, kds = 0.025")
+![Steer error](./project/images_for_writeup/throttle_error_plot_run4.png "Steer error with : kps = 0.35, kis = 0.003, kds = 0.025")
 
 Stability: Good - no wild oscillations like earlier runs
 Response Speed: Improved - settling occurs in ~30-40 steps vs previous 60-80
