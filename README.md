@@ -1,3 +1,10 @@
+To evaluate the completition of the course, please check:
+
+- WRITEUP.md contains the final report, answering all questions requested in the project rubric
+- modified main.cpp, pid_controller.cpp and pid_controller.h
+- saved copies of steer_pid_data.txt and throttle_pid_data.txt of PID tuning runs in ./project/tuning_run_logs
+
+
 # Control and Trajectory Tracking for Autonomous Vehicle
 
 In this project, you will apply the skills you have acquired in this course to design a Proportional-Integral-Derivative (PID) controller to perform vehicle trajectory tracking. Given a trajectory as an array of locations, and a simulation environment, you will design and code a PID controller and test its efficiency on the CARLA simulator used in the industry.
