@@ -37,14 +37,14 @@ I have executed 4 total tuning runs with the following parameters. The throttle 
 
 Tuning Steering proved more challenging compared to throttle. It was not only about tuning, but behaviour - more on that later.
 
-_Parameters:_
+_Parameters_
 ```cpp
 double kps = 0.35;    // run1  0.25     // run2  0.4    // run3  0.5    // run4  0.35
 double kis = 0.003;   // run1  0.001    // run2  0.0    // run3  0.005  // run4  0.003
 double kds = 0.025;   // run1  0.02     // run2  0.08   // run3  0.04   // run4  0.025
 ```
 
-_Next:_
+_Tuning runs overview_
 - Run 1: Steering oscillation, large swings, instability, slow steering response.
 - Run 2: No wild oscillations (better damping), still slow response, steady state offset of (0.0036).
 - Run 3: Over-dumped response, slow to settle (60-80 steps). Steady state offset of (0.0036). Insufficient aggressiveness?
@@ -55,7 +55,7 @@ _Next:_
 **Run 2 _ Start**
 
 ![Run 2 - 2](./project/images_for_writeup/Screenshot-run2-2.png "Run 2 _ Ego avoided obstacle.")
-Run 2 _ Ego avoided obstacle.
+**Run 2 _ Ego avoided obstacle.**
 
 ![Run 4 - 1](./project/images_for_writeup/Screenshot-run4-1.png "Run 4 _ Start")
 **Run 4 _ Start**
@@ -136,14 +136,14 @@ For practical deployment, the cost function should combine multiple performance 
 
 _*PID controller is a model free controller, i.e. it does not use a model of the car. Could you explain the pros and cons of this type of controller? Find at least 2 pros and cons for model free versus model based.*_
 
-**Model-Free Controller Advantages**
+### Model-Free Controller Advantages
 Model-free controllers like PID are simple to implement and tune without requiring detailed knowledge of the vehicle's dynamics, making them practical for rapid deployment across different car types. They are inherently robust to modeling errors and uncertainties since they don't rely on mathematical representations that may not perfectly capture real-world behavior.
 
-**Model-Free Controller Disadvantages**
+### Model-Free Controller Disadvantages
 PID controllers can only react to errors after they occur, leading to slower response times and potential instability in highly dynamic situations compared to predictive approaches. They often require extensive manual tuning for each specific application and may not achieve optimal performance since they lack understanding of the system's underlying physics.
 
-**Model-Based Controller Advantages**
+### Model-Based Controller Advantages
 Model-based controllers can predict future system behavior and proactively adjust control inputs, leading to superior performance and faster response times. They can systematically incorporate physical constraints and optimize control strategies based on mathematical understanding of vehicle dynamics.
 
-**Model-Based Controller Disadvantages**
+### Model-Based Controller Disadvantages
 These controllers are highly sensitive to modeling errors and may perform poorly if the mathematical model doesn't accurately represent the real system. They require significant expertise to develop accurate models and are computationally more demanding, making them complex to implement and maintain.
